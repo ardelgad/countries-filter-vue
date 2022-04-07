@@ -21,12 +21,13 @@
   <main id="app">
     <div class="main-container">
       <section class="search-filter-container">
+
         <div class="search-field">
           <i class="fa-solid fa-magnifying-glass"></i>
-          <input class="search-input" type="text" placeholder="Search for a country..." />
+          <input v-model="countryFilter"  class="search-input" type="text" placeholder="Search for a country..." />
         </div>
 
-        <select name="regions" id="regions" aria-label="regions">
+        <select v-model="regionFilter" name="regions" id="regions" aria-label="regions">
           <option value="">Filter by Region</option>
           <option value="all">All</option>
           <option value="africa">Africa</option>
@@ -38,15 +39,24 @@
       </section>
 
       <div class="cards">
-        <div class="card card-nombreDelPais"> <!-- Pista pasa usar el v-for-->
-          <img class="flag" src="" alt="nombreDelPais flag" />
-          <div class="content">
-            <h3 class="name">NOMBRE</h3>
-            <div><span class="country-info">Population: </span><span class="population">NÚMERO DE HABITANTES</span>
-            </div>
-            <div><span class="country-info">Region: </span><span class="region">EUROPA? ASIA?</span></div>
+         <!-- Utilizar adecuadamente v-for para cargar todos los paises desde la variable de estado countries -->
+        <div v-for= "country in getFilteredCountries" class="card card-nombreDelPais">
+          <img class="flag" :src= "country.flag"
+          :alt="country.name"/>
 
-            <div><span class="country-info">Capital: </span><span class="capital">Madrid</span></div>
+          <div class="content">
+
+            <h3 class="name">{{country.name}}</h3>
+
+            <div><span class="country-info">Population: </span><span class="population">{{country.population}}</span>
+            </div>
+
+            <div><span class="country-info">Region: </span><span class="region">{{country.region}}</span>
+            </div>
+
+            <div><span class="country-info">Capital: </span><span class="capital">{{country.capital}}</span>
+            </div>
+
           </div>
         </div>
       </div>
@@ -54,8 +64,9 @@
       <section class="modal country-info-page"></section>
     </div>
   </main>
+
   <script src="https://unpkg.com/vue@3"></script>
   <script src="main.js"></script>
-</body>
 
+</body>
 </html>
